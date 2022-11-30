@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('users', {
+    return queryInterface.createTable('blog_posts', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,21 +13,33 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,        
       },
-      user_id: {
-           
-      },
-      password: {
+      content: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,        
       },
-      image: {
-        allowNull: false,
+      userId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        field: 'user_id',
+        references: {
+          model: 'users',
+          key: 'id',
+        }
+      },
+      published: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updated: {
+        allowNull: false,
+        type: Sequelize.DATE,
       }
     });
   },
 
   down: async (queryInterface, _Sequelize) => {
-    return queryInterface.dropTable('users');
+    return queryInterface.dropTable('blog_posts');
   },
 };
