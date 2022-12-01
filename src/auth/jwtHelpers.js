@@ -8,7 +8,7 @@ const jwtConfigs = {
 };
 
 const createToken = (payload) => {
-  const token = jwt.sign(payload, secret, jwtConfigs);
+  const token = jwt.sign({ data: payload }, secret, jwtConfigs);
   return token;
 };
 
