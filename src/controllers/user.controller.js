@@ -4,7 +4,7 @@ const creatUser = async (req, res) => {
   try {
     const { displayName, email, password, image } = req.body;
     const token = await UserService.creatUser(displayName, email, password, image);
-    res.status(201).json({ token });
+    return res.status(201).json({ token });
   } catch (err) {
     return res
       .status(500)
@@ -19,7 +19,7 @@ const getUsers = async (req, res) => {
   try {
     const users = await UserService.getUsers();
     const usersWithoutPassword = removePasswords(users);
-    res.status(200).json(usersWithoutPassword);
+    return res.status(200).json(usersWithoutPassword);
   } catch (err) {
     return res
       .status(500)
@@ -32,10 +32,10 @@ const getUserById = async (req, res) => {
   try {
     const user = await UserService.getUserById(id);
     
-    if (!user) res.status(404).json({ message: 'User does not exist' });
+    if (!user) return res.status(404).json({ message: 'User does not exist' });
 
-    const { password: _, ...userWithoutPassword } = user;
-    res.status(200).json(userWithoutPassword);
+    const { password: _, ...userWithoutPassword } = user.dataValues;
+    return res.status(200).json(userWithoutPassword);
   } catch (err) {
     return res
       .status(500)
