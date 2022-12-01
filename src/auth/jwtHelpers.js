@@ -12,7 +12,7 @@ const createToken = (payload) => {
   return token;
 };
 
-const verifyToken = (token) => {
+const decodeToken = (token) => {
   try {
     const payload = jwt.verify(token, secret);
     return payload;
@@ -21,4 +21,4 @@ const verifyToken = (token) => {
   }
 };
 
-module.exports = { createToken, verifyToken };
+module.exports = { createToken, decodeToken };

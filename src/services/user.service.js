@@ -3,6 +3,8 @@ const jwtHelpers = require('../auth/jwtHelpers');
 
 const getUsers = async () => User.findAll();
 
+const getUserById = async (id) => User.findByPk(id);
+
 const getByUserEmailAndPassword = async (userEmail, userPassword) => 
   User.findOne({ where: { email: userEmail, password: userPassword } });
 // const getByUserPassword = (userEmail) => User.findOne({ where: { userEmail } });
@@ -22,4 +24,5 @@ module.exports = {
   getByUserEmailAndPassword,
   getByUserEmail,
   creatUser,
+  getUserById,
 };
