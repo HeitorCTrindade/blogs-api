@@ -22,9 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'blogposts',
       foreignKey: 'id',
     })
-
-  } 
-
+  }; 
 
   return user;
 }  

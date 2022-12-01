@@ -17,6 +17,8 @@ app.post('/login', controllers.login);
 app.get('/categories', validadeToken, controllers.category.getCategories);
 app.post('/categories', validadeToken, validateNewCategory, controllers.category.creatCategory);
 
+app.post('/post', validadeToken, controllers.post);
+
 // ...
 // VQV! Let'go
 // É importante exportar a constante `app`,
