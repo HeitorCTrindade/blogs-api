@@ -31,19 +31,25 @@ const createBlogPost = async ({ userId, title, content, categoryIds }) => {
 };
 
 const getAllPosts = async () => BlogPost.findAll({
-    include: [
-      { model: User, as: 'user', attributes: { exclude: ['password'] } },
-      { model: Category, as: 'categories', through: { attributes: [] } }],
-  });
+  include: [
+    { model: User, as: 'user', attributes: { exclude: ['password'] } },
+    { model: Category, as: 'categories', through: { attributes: [] } }],
+});
 
-  const getPostById = async (id) => BlogPost.findByPk(id, {
-    include: [
-      { model: User, as: 'user', attributes: { exclude: ['password'] } },
-      { model: Category, as: 'categories', through: { attributes: [] } }],
-  });
+const getPostById = async (id) => BlogPost.findByPk(id, {
+  include: [
+    { model: User, as: 'user', attributes: { exclude: ['password'] } },
+    { model: Category, as: 'categories', through: { attributes: [] } }],
+});
+
+const updatePostById = async (idPost, userId, title, content) => { 
+  const result = BlogPost.update({ title, content }, { where: { id: +idPost, userId } });
+  return result;
+};
 
 module.exports = {
   createBlogPost,
   getAllPosts,
   getPostById,
+  updatePostById,
 };

@@ -4,6 +4,7 @@ const validateNewUser = require('./middlewares/validadeNewUser');
 const validadeToken = require('./middlewares/validadeToken');
 const validateNewCategory = require('./middlewares/validateNewCategory');
 const validateNewPost = require('./middlewares/validateNewPost');
+const validateUpdatePost = require('./middlewares/validateUpdatePost');
 
 // ...
 
@@ -21,6 +22,7 @@ app.post('/categories', validadeToken, validateNewCategory, controllers.category
 app.post('/post', validadeToken, validateNewPost, controllers.post.createBlogPost);
 app.get('/post', validadeToken, controllers.post.getAllPosts);
 app.get('/post/:id', validadeToken, controllers.post.getPostById);
+app.put('/post/:id', validadeToken, validateUpdatePost, controllers.post.updatePostById);
 
 // ...
 // VQV! Let'go

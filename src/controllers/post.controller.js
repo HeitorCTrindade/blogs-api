@@ -37,8 +37,25 @@ const getPostById = async (req, res) => {
   }
 };
 
+const updatePostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    const { id: userId } = req.user;
+
+    const [post] = await PostService.updatePostById(id, userId, title, content);
+    if (post === 0) return res.status(401).json({ message: 'Unauthorized user' });
+    await getPostById(req, res);    
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: 'Erro interno', error: err.message });
+  }
+};
+
 module.exports = {
   createBlogPost,
   getAllPosts,
   getPostById,
+  updatePostById,
 };
