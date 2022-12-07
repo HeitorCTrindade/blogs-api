@@ -19,6 +19,7 @@ app.get('/categories', validadeToken, controllers.category.getCategories);
 app.post('/categories', validadeToken, validateNewCategory, controllers.category.creatCategory);
 
 app.post('/post', validadeToken, validateNewPost, controllers.post.createBlogPost);
+app.get('/post', validadeToken, controllers.post.getAllPosts);
 
 // ...
 // VQV! Let'go
