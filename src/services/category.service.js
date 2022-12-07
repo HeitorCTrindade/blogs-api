@@ -8,14 +8,10 @@ const creatCategory = async (name) => {
 };
 
 const findAndCountCategorys = async (arr) => {
-  const { Op } = require('sequelize');
-  
   const { count } = await Category.findAndCountAll({
     where: {
-      id: {
-        [Op.in]: arr,
-      },
-    },
+      id: arr,
+    },    
   });
   return count;
 };
