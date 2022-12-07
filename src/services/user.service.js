@@ -19,10 +19,16 @@ const creatUser = async (displayName, email, password, image = null) => {
   return token;
 };
 
+const deleteOwnUser = async (idUser) => {
+  const result = User.destroy({ where: { id: idUser } });
+  return result;
+};
+
 module.exports = {
   getUsers,
   getByUserEmailAndPassword,
   getByUserEmail,
   creatUser,
   getUserById,
+  deleteOwnUser,
 };

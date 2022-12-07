@@ -15,6 +15,7 @@ app.use(express.json());
 app.get('/user', validadeToken, controllers.user.getUsers);
 app.get('/user/:id', validadeToken, controllers.user.getUserById);
 app.post('/user', validateNewUser, controllers.user.creatUser);
+app.delete('/user/me', validadeToken, controllers.user.deleteOwnUser);
 
 app.post('/login', controllers.login);
 
