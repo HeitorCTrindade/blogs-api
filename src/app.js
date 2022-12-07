@@ -20,6 +20,7 @@ app.post('/categories', validadeToken, validateNewCategory, controllers.category
 
 app.post('/post', validadeToken, validateNewPost, controllers.post.createBlogPost);
 app.get('/post', validadeToken, controllers.post.getAllPosts);
+app.get('/post/:id', validadeToken, controllers.post.getPostById);
 
 // ...
 // VQV! Let'go

@@ -14,11 +14,31 @@ const createBlogPost = async (req, res) => {
 };
 
 const getAllPosts = async (req, res) => {
-  const result = await PostService.getAllPosts();
-  return res.status(200).json(result);
+  try {
+    const posts = await PostService.getAllPosts();
+    return res.status(200).json(posts);
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: 'Erro interno', error: err.message });
+  }
+};
+
+const getPostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await PostService.getPostById(id);
+    if (!post) return res.status(404).json({ message: 'Post does not exist' });
+    return res.status(200).json(post);
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: 'Erro interno', error: err.message });
+  }
 };
 
 module.exports = {
   createBlogPost,
   getAllPosts,
+  getPostById,
 };
