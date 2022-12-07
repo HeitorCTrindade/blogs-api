@@ -27,6 +27,7 @@ app.get('/post', validadeToken, controllers.post.getAllPosts);
 app.get('/post/:id', validadeToken, controllers.post.getPostById);
 app.put('/post/:id', validadeToken, validateUpdatePost, controllers.post.updatePostById);
 app.delete('/post/:id', validadeToken, controllers.post.deletePostById);
+app.get('/post/search', validadeToken, controllers.post.getAllPostsByTerm);
 
 // ...
 // VQV! Let'go

@@ -7,6 +7,8 @@ const env = 'development';
 
 const sequelize = new Sequelize(config[env]);
 
+const { Op } = Sequelize; 
+
 const createBlogPost = async ({ userId, title, content, categoryIds }) => {
   const t = await sequelize.transaction();
   
@@ -52,10 +54,28 @@ const deletePostById = async (idPost, userId) => {
   return result;
 };
 
+const getAllPostsByTerm = async (term) => BlogPost.findAll(
+  { where: 
+    { [Op.or]: [
+      { title:
+        { [Op.like]: `${term}%` },
+      },
+      { content:
+        { [Op.like]: `${term}%` },
+      },
+    ] },
+  },
+  { include: [
+    { model: User, as: 'user', attributes: { exclude: ['password'] } },
+    { model: Category, as: 'categories', through: { attributes: [] } }],
+},
+);
+
 module.exports = {
   createBlogPost,
   getAllPosts,
   getPostById,
   updatePostById,
   deletePostById,
+  getAllPostsByTerm,
 };

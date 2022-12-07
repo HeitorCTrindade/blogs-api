@@ -72,10 +72,23 @@ const deletePostById = async (req, res) => {
   }
 };
 
+const getAllPostsByTerm = async (req, res) => {
+  try {
+    const { q: searchTerm } = req.paramsck;    
+    // const post = await PostService.getAllPostsByTerm(searchTerm);    
+    return res.status(200).json(searchTerm);
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: ERRO_INTERNO, error: err.message });
+  }
+};
+
 module.exports = {
   createBlogPost,
   getAllPosts,
   getPostById,
   updatePostById,
   deletePostById,
+  getAllPostsByTerm,
 };
