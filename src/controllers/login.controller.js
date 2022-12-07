@@ -14,6 +14,7 @@ module.exports = async (req, res) => {
       return res.status(400).json({ message: 'Some required fields are missing' });
     }
   
+    // igualar tokens. 
     const user = await UserService.getByUserEmailAndPassword(email, password);
   
     if (!user) {
@@ -24,7 +25,7 @@ module.exports = async (req, res) => {
       expiresIn: '7d',
       algorithm: 'HS256',
     };
-    const token = jwt.sign({ data: { email } }, secret, jwtConfig);
+    const token = jwt.sign({ data: { email, id: user.id } }, secret, jwtConfig);
   
     res.status(200).json({ token });
   } catch (err) {

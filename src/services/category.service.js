@@ -7,7 +7,21 @@ const creatCategory = async (name) => {
   return user;
 };
 
+const findAndCountCategorys = async (arr) => {
+  const { Op } = require('sequelize');
+  
+  const { count } = await Category.findAndCountAll({
+    where: {
+      id: {
+        [Op.in]: arr,
+      },
+    },
+  });
+  return count;
+};
+
 module.exports = {
   getCategories,
-  creatCategory,  
+  creatCategory,
+  findAndCountCategorys,  
 };
