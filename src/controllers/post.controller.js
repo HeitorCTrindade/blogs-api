@@ -1,5 +1,7 @@
 const PostService = require('../services/post.service');
 
+const ERRO_INTERNO = 'Erro interno';
+
 const createBlogPost = async (req, res) => {
   try {
     const { title, content, categoryIds } = req.body;
@@ -9,7 +11,7 @@ const createBlogPost = async (req, res) => {
   } catch (err) {
     return res
       .status(500)
-      .json({ message: 'Erro interno', error: err.message });
+      .json({ message: ERRO_INTERNO, error: err.message });
   }
 };
 
@@ -20,7 +22,7 @@ const getAllPosts = async (req, res) => {
   } catch (err) {
     return res
       .status(500)
-      .json({ message: 'Erro interno', error: err.message });
+      .json({ message: ERRO_INTERNO, error: err.message });
   }
 };
 
@@ -33,7 +35,7 @@ const getPostById = async (req, res) => {
   } catch (err) {
     return res
       .status(500)
-      .json({ message: 'Erro interno', error: err.message });
+      .json({ message: ERRO_INTERNO, error: err.message });
   }
 };
 
@@ -49,7 +51,24 @@ const updatePostById = async (req, res) => {
   } catch (err) {
     return res
       .status(500)
-      .json({ message: 'Erro interno', error: err.message });
+      .json({ message: ERRO_INTERNO, error: err.message });
+  }
+};
+
+const deletePostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { id: userId } = req.user;
+    let post = await PostService.getPostById(id);
+    if (!post) return res.status(404).json({ message: 'Post does not exist' });
+
+    post = await PostService.deletePostById(id, userId);
+    if (post === 0) return res.status(401).json({ message: 'Unauthorized user' });
+    return res.status(204).end();    
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: ERRO_INTERNO, error: err.message });
   }
 };
 
@@ -58,4 +77,5 @@ module.exports = {
   getAllPosts,
   getPostById,
   updatePostById,
+  deletePostById,
 };
