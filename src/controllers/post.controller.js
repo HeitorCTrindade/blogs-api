@@ -74,9 +74,13 @@ const deletePostById = async (req, res) => {
 
 const getAllPostsByTerm = async (req, res) => {
   try {
-    const { q: searchTerm } = req.paramsck;    
-    // const post = await PostService.getAllPostsByTerm(searchTerm);    
-    return res.status(200).json(searchTerm);
+    const { q: searchTerm } = req.query;    
+    if (!searchTerm.length) {
+      const posts = await PostService.getAllPosts();
+      return res.status(200).json(posts);
+    }
+    const post = await PostService.getAllPostsByTerm(searchTerm);    
+    return res.status(200).json(post);
   } catch (err) {
     return res
       .status(500)

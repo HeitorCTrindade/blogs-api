@@ -58,10 +58,10 @@ const getAllPostsByTerm = async (term) => BlogPost.findAll(
   { where: 
     { [Op.or]: [
       { title:
-        { [Op.like]: `${term}%` },
+        { [Op.like]: `%${term}%` },
       },
       { content:
-        { [Op.like]: `${term}%` },
+        { [Op.like]: `%${term}%` },
       },
     ] },
   },

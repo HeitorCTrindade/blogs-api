@@ -23,11 +23,11 @@ app.get('/categories', validadeToken, controllers.category.getCategories);
 app.post('/categories', validadeToken, validateNewCategory, controllers.category.creatCategory);
 
 app.post('/post', validadeToken, validateNewPost, controllers.post.createBlogPost);
+app.get('/post/search', validadeToken, controllers.post.getAllPostsByTerm);
 app.get('/post', validadeToken, controllers.post.getAllPosts);
 app.get('/post/:id', validadeToken, controllers.post.getPostById);
 app.put('/post/:id', validadeToken, validateUpdatePost, controllers.post.updatePostById);
 app.delete('/post/:id', validadeToken, controllers.post.deletePostById);
-app.get('/post/search', validadeToken, controllers.post.getAllPostsByTerm);
 
 // ...
 // VQV! Let'go
