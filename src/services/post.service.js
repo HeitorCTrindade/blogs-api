@@ -64,11 +64,10 @@ const getAllPostsByTerm = async (term) => BlogPost.findAll(
         { [Op.like]: `%${term}%` },
       },
     ] },
-  },
-  { include: [
-    { model: User, as: 'user', attributes: { exclude: ['password'] } },
-    { model: Category, as: 'categories', through: { attributes: [] } }],
-},
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } }],
+  }, 
 );
 
 module.exports = {
